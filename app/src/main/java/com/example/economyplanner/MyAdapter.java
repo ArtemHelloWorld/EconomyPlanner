@@ -42,7 +42,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.isDone.setChecked(items.get(position).getDone());
         holder.taskName.setText(items.get(position).getName());
         holder.taskName.setPaintFlags(items.get(position).getDone() ? Paint.STRIKE_THRU_TEXT_FLAG : 0);
-        holder.dateTextView.setText(items.get(position).getDate());
+        holder.dateTextView.setText(items.get(position).getDeadline());
 
         holder.isDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

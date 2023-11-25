@@ -1,18 +1,16 @@
 package com.example.economyplanner;
 
-import java.util.Date;
-
 public class Item {
 
     String name;
     Boolean isDone;
-    String date;
+    String deadline;
 
 
 
-    public Item(String name, String date, Boolean isDone) {
+    public Item(String name, String deadline, Boolean isDone) {
         this.name = name;
-        this.date = date;
+        this.deadline = deadline;
         this.isDone = isDone;
     }
 
@@ -25,12 +23,12 @@ public class Item {
     }
 
 
-    public String getDate() {
-        return date;
+    public String getDeadline() {
+        return deadline;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
     }
 
     public Boolean getDone() {

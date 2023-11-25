@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -94,7 +93,7 @@ public class CalendarFragment extends Fragment {
     private List<Item> getTasksForDay(String selectedDate){
         List<Item> items_local = new ArrayList<>();
         for (int i=0; i<items.size(); i++) {
-            if (Objects.equals(items.get(i).getDate(), selectedDate)) {
+            if (Objects.equals(items.get(i).getDeadline(), selectedDate)) {
                 items_local.add(items.get(i));
             }
         }
