@@ -1,18 +1,19 @@
 package com.example.economyplanner;
 
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
-    TextView textView1;
-    TextView textView2;
+    CheckBox isDone;
+    TextView taskName;
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        textView1 = itemView.findViewById(R.id.textView);
-        textView2 = itemView.findViewById(R.id.textView2);
+        isDone = itemView.findViewById(R.id.isDone);
+        taskName = itemView.findViewById(R.id.taskName);
     }
 }

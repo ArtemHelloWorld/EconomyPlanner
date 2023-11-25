@@ -3,12 +3,13 @@ package com.example.economyplanner;
 public class Item {
 
     String name;
-    String description;
+    Boolean isDone;
 
 
-    public Item(String name, String description) {
+
+    public Item(String name, Boolean isDone) {
         this.name = name;
-        this.description = description;
+        this.isDone = isDone;
     }
 
     public String getName() {
@@ -19,11 +20,12 @@ public class Item {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public Boolean getDone() {
+        return isDone;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDone(Boolean done) {
+        isDone = done;
     }
+
 }
