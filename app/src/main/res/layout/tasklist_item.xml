@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10px"
-    android:background="#F0000000"
     android:paddingVertical="20px">
 
     <CheckBox
@@ -22,7 +21,6 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@id/isDone"
         android:text="Task"
-        android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
     <TextView
