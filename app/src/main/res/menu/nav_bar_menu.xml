@@ -5,15 +5,18 @@
         android:id="@+id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="List" />
+        android:icon="@drawable/checklist_24"
+        android:title="Задачи" />
     <item
         android:id="@+id/calendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Calendar" />
+        android:icon="@drawable/calendar_24"
+        android:title="Календарь" />
     <item
         android:id="@+id/profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Profile" />
+        android:icon="@drawable/account_24"
+        android:title="Профиль" />
 </menu>

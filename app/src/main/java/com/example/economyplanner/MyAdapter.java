@@ -23,6 +23,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     }
 
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,6 +42,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.isDone.setChecked(items.get(position).getDone());
         holder.taskName.setText(items.get(position).getName());
         holder.taskName.setPaintFlags(items.get(position).getDone() ? Paint.STRIKE_THRU_TEXT_FLAG : 0);
+        holder.dateTextView.setText(items.get(position).getDate());
 
         holder.isDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
