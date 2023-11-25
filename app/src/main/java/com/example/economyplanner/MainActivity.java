@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+
 import com.example.economyplanner.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
