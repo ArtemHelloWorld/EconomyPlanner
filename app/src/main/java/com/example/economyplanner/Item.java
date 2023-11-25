@@ -3,15 +3,15 @@ package com.example.economyplanner;
 public class Item {
 
     String name;
-    Boolean isDone;
+    Boolean status;
     String deadline;
 
 
 
-    public Item(String name, String deadline, Boolean isDone) {
+    public Item(String name, String deadline, Boolean status) {
         this.name = name;
         this.deadline = deadline;
-        this.isDone = isDone;
+        this.status = status;
     }
 
     public String getName() {
@@ -31,12 +31,12 @@ public class Item {
         this.deadline = deadline;
     }
 
-    public Boolean getDone() {
-        return isDone;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setDone(Boolean done) {
-        isDone = done;
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
 }

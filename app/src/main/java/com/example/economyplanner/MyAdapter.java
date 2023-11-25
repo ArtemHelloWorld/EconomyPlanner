@@ -39,16 +39,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.isDone.setChecked(items.get(position).getDone());
+        holder.isDone.setChecked(items.get(position).getStatus());
         holder.taskName.setText(items.get(position).getName());
-        holder.taskName.setPaintFlags(items.get(position).getDone() ? Paint.STRIKE_THRU_TEXT_FLAG : 0);
+        holder.taskName.setPaintFlags(items.get(position).getStatus() ? Paint.STRIKE_THRU_TEXT_FLAG : 0);
         holder.dateTextView.setText(items.get(position).getDeadline());
 
         holder.isDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                items.get(holder.getAdapterPosition()).setDone(b);
-                holder.taskName.setPaintFlags(items.get(holder.getAdapterPosition()).getDone() ? Paint.STRIKE_THRU_TEXT_FLAG : 0);
+                items.get(holder.getAdapterPosition()).setStatus(b);
+                holder.taskName.setPaintFlags(items.get(holder.getAdapterPosition()).getStatus() ? Paint.STRIKE_THRU_TEXT_FLAG : 0);
             }
         });
     }
