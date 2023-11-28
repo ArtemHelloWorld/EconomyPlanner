@@ -6,6 +6,13 @@
     android:layout_marginTop="10px"
     android:paddingVertical="20px">
 
+    <TextView
+        android:id="@+id/taskId"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="0"
+        android:textSize="0sp" />
+
     <CheckBox
         android:id="@+id/isDone"
         android:layout_width="wrap_content"
@@ -22,6 +29,7 @@
         android:layout_toEndOf="@id/isDone"
         android:text="Task"
         android:textSize="20sp" />
+
 
     <TextView
         android:id="@+id/dateTextView"

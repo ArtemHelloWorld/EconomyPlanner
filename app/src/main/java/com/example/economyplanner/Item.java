@@ -2,16 +2,29 @@ package com.example.economyplanner;
 
 public class Item {
 
+    Integer id;
     String name;
     Boolean status;
-    String deadline;
+    String deadlineStart;
+    String deadlineEnd;
 
 
 
-    public Item(String name, String deadline, Boolean status) {
+    public Item(Integer id, String name, Boolean status, String deadlineStart, String deadlineEnd) {
+        this.id = id;
         this.name = name;
-        this.deadline = deadline;
         this.status = status;
+        this.deadlineStart = deadlineStart;
+        this.deadlineEnd = deadlineEnd;
+
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -22,15 +35,6 @@ public class Item {
         this.name = name;
     }
 
-
-    public String getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(String deadline) {
-        this.deadline = deadline;
-    }
-
     public Boolean getStatus() {
         return status;
     }
@@ -39,4 +43,19 @@ public class Item {
         this.status = status;
     }
 
+    public String getDeadlineStart() {
+        return deadlineStart;
+    }
+
+    public void setDeadlineStart(String deadlineStart) {
+        this.deadlineStart = deadlineStart;
+    }
+
+    public String getDeadlineEnd() {
+        return deadlineEnd;
+    }
+
+    public void setDeadlineEnd(String deadlineEnd) {
+        this.deadlineEnd = deadlineEnd;
+    }
 }
