@@ -1,6 +1,9 @@
-package com.example.economyplanner;
+package com.example.economyplanner.MainActivityFragments;
+
+import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,17 +15,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -31,6 +28,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.economyplanner.NewTaskActivity;
+import com.example.economyplanner.R;
+import com.example.economyplanner.TaskRecyclerView.TaskItem;
+import com.example.economyplanner.TaskRecyclerView.TasksListAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +41,8 @@ public class ListFragment extends Fragment {
 
     RecyclerView recyclerView;
     Button addButton;
+    String SHARED_PREFERENCES = "LoginData";
+
 
     public ListFragment() {
         // Required empty public constructor
@@ -60,18 +63,18 @@ public class ListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
 
 
-        ArrayList<Item> items = new ArrayList<>();
-        String url = "http://artemkg2.beget.tech/api/v1/tasks/";
+        ArrayList<TaskItem> taskItems = new ArrayList<>();
+        String url = "http://172.28.187.56:8000/api/v1/tasks/";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     JSONArray data = (JSONArray) response.get("Data");
-                    for (int i=0; i<data.length(); i++){
+                    for (int i = 0; i < data.length(); i++) {
                         JSONObject item = (JSONObject) data.get(i);
-                        items.add(new Item((Integer) item.get("id"), item.get("name").toString(), (boolean)item.get("status"), item.get("deadline_start").toString(), item.get("deadline_end").toString()));
+                        taskItems.add(new TaskItem((Integer) item.get("id"), item.get("name").toString(), (boolean) item.get("status"), item.get("deadline_start").toString(), item.get("deadline_end").toString(), item.get("time_completed").toString()));
                     }
-                    recyclerView.setAdapter(new MyAdapter(requireContext(), items));
+                    recyclerView.setAdapter(new TasksListAdapter(requireContext(), taskItems));
                 } catch (JSONException e) {
                     Toast.makeText(requireContext(), e.toString(), Toast.LENGTH_LONG).show();
                 }
@@ -81,12 +84,13 @@ public class ListFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(requireContext(), error.toString(), Toast.LENGTH_LONG).show();
             }
-        })
-        {
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAxMzQ2NjQ1LCJpYXQiOjE3MDExNzM4NDUsImp0aSI6IjI1NzkwOTk2NjEwZjRmOTY5M2NjYzRhMmMwZjdjNTZlIiwidXNlcl9pZCI6MX0.Fy5FpG1A0judpz98gzJUj-yBkqGVXGSXju5t73aJW-o ");
+                SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE);
+                String accessToken = sharedPreferences.getString("AccessToken", "");
+                headers.put("Authorization", String.format("Bearer %s", accessToken));
                 return headers;
             }
         };
@@ -97,18 +101,17 @@ public class ListFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.taskList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new MyAdapter(requireContext(), items));
+        recyclerView.setAdapter(new TasksListAdapter(requireContext(), taskItems));
 
         addButton = view.findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(requireActivity(), AddTaskActivity.class);
+                Intent intent = new Intent(requireActivity(), NewTaskActivity.class);
                 startActivity(intent);
             }
         });
-
-        return view ;
-
+        return view;
     }
+
 }

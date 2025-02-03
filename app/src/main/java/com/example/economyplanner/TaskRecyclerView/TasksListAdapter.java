@@ -1,6 +1,9 @@
-package com.example.economyplanner;
+package com.example.economyplanner.TaskRecyclerView;
+
+import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -17,8 +20,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.economyplanner.R;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,44 +30,44 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
+public class TasksListAdapter extends RecyclerView.Adapter<TasksViewHolder> {
 
     Context context;
-    List<Item> items;
+    List<TaskItem> taskItems;
+    String SHARED_PREFERENCES = "LoginData";
 
-    public MyAdapter(Context context, List<Item> items) {
+
+    public TasksListAdapter(Context context, List<TaskItem> taskItems) {
         this.context = context;
-        this.items = items;
-
-
+        this.taskItems = taskItems;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public List<TaskItem> getItems() {
+        return taskItems;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setItems(List<TaskItem> taskItems) {
+        this.taskItems = taskItems;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.tasklist_item, parent, false));
+    public TasksViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new TasksViewHolder(LayoutInflater.from(context).inflate(R.layout.tasklist_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.taskId.setText(String.format(Locale.getDefault(), "%d", items.get(position).getId()));
-        holder.isDone.setChecked(items.get(position).getStatus());
-        holder.taskName.setText(items.get(position).getName());
-        holder.taskName.setPaintFlags(items.get(position).getStatus() ? Paint.STRIKE_THRU_TEXT_FLAG : 0);
-        holder.dateTextView.setText(String.format("с %s до %s", items.get(position).getDeadlineStart(), items.get(position).getDeadlineEnd()));
+    public void onBindViewHolder(@NonNull TasksViewHolder holder, int position) {
+        holder.taskId.setText(String.format(Locale.getDefault(), "%d", taskItems.get(position).getId()));
+        holder.isDone.setChecked(taskItems.get(position).getStatus());
+        holder.taskName.setText(taskItems.get(position).getName());
+        holder.taskName.setPaintFlags(taskItems.get(position).getStatus() ? Paint.STRIKE_THRU_TEXT_FLAG : 0);
+        holder.dateTextView.setText(String.format("с %s до %s", taskItems.get(position).getDeadlineStart(), taskItems.get(position).getDeadlineEnd()));
 
         holder.isDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                String url = String.format("http://artemkg2.beget.tech/api/v1/task/%s/", holder.taskId.getText());
+                String url = String.format("http://172.28.187.56:8000/api/v1/task/%s/", holder.taskId.getText());
                 JSONObject requestBody = new JSONObject();
                 try {
                     requestBody.put("status", b);
@@ -74,8 +77,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PATCH, url, requestBody, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        items.get(holder.getAdapterPosition()).setStatus(b);
-                        holder.taskName.setPaintFlags(items.get(holder.getAdapterPosition()).getStatus() ? Paint.STRIKE_THRU_TEXT_FLAG : 0);
+                        taskItems.get(holder.getAdapterPosition()).setStatus(b);
+                        holder.taskName.setPaintFlags(taskItems.get(holder.getAdapterPosition()).getStatus() ? Paint.STRIKE_THRU_TEXT_FLAG : 0);
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -87,7 +90,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                     @Override
                     public Map<String, String> getHeaders() throws AuthFailureError {
                         HashMap<String, String> headers = new HashMap<String, String>();
-                        headers.put("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAxMzQ2NjQ1LCJpYXQiOjE3MDExNzM4NDUsImp0aSI6IjI1NzkwOTk2NjEwZjRmOTY5M2NjYzRhMmMwZjdjNTZlIiwidXNlcl9pZCI6MX0.Fy5FpG1A0judpz98gzJUj-yBkqGVXGSXju5t73aJW-o ");
+                        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE);
+                        String accessToken = sharedPreferences.getString("AccessToken", "");
+                        headers.put("Authorization", String.format("Bearer %s", accessToken));
                         return headers;
                     }
                 };
@@ -100,6 +105,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return taskItems.size();
     }
 }

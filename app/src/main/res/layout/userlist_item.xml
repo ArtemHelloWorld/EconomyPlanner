@@ -7,27 +7,18 @@
     android:paddingVertical="20px">
 
     <TextView
-        android:id="@+id/taskId"
+        android:id="@+id/userId"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="0"
         android:textSize="0sp" />
 
-    <CheckBox
-        android:id="@+id/isDone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:checked="true"
-        android:paddingHorizontal="0dp"/>
-
     <TextView
-        android:id="@+id/taskName"
+        android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@id/isDone"
-        android:text="Task"
+        android:text="User"
         android:textSize="20sp" />
 
 
@@ -35,8 +26,7 @@
         android:id="@+id/jobTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/taskName"
-        android:layout_toEndOf="@+id/isDone"
+        android:layout_below="@+id/userName"
         android:text="date"
         android:textSize="10sp"
         android:textColor="#A8A8A8" />

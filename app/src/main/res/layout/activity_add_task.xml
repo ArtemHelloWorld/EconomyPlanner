@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddTaskActivity">
+    tools:context=".NewTaskActivity">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -28,22 +28,33 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/exitButton"
             android:layout_weight="1"
             android:paddingTop="12dp"
             android:paddingBottom="10dp"
             android:text="Новая задача"
             android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/add_ox_24"
+            android:onClick="createTask" />
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:layout_marginTop="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
@@ -51,7 +62,7 @@
         <EditText
             android:id="@+id/taskName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="357dp"
             android:ems="10"
             android:gravity="start|top"
             android:hint="Текст задачи"
@@ -61,26 +72,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/saveButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="createTask"
-            android:text="сохранить" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,44 +92,52 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="20dp"
             android:layout_weight="1"
             android:gravity="clip_horizontal|center"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:text="C"
-                android:textAlignment="center"
-                android:textSize="12sp" />
-
-            <TextView
+            <Button
                 android:id="@+id/deadlineStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="deadlineStart"
-                android:textSize="18sp" />
+                android:text="deadlineStart" />
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:text="До"
+                android:text="-"
                 android:textAlignment="center"
                 android:textSize="12sp" />
 
-            <TextView
+            <Button
                 android:id="@+id/deadlineEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="deadlinEnd"
-                android:textSize="18sp" />
+                android:text="deadlinEnd" />
         </LinearLayout>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+        <Button
+            android:id="@+id/chooseSubordinates"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Выбрать подчиненных"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:onClick="showSubordinatesDropdown"/>
     </LinearLayout>
 
     <TextView
@@ -143,8 +146,8 @@
         android:layout_height="wrap_content"
         android:textColor="#FF0000"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

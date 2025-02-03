@@ -1,21 +1,24 @@
-package com.example.economyplanner;
+package com.example.economyplanner.TaskRecyclerView;
 
-public class Item {
+public class TaskItem {
 
     Integer id;
     String name;
     Boolean status;
     String deadlineStart;
     String deadlineEnd;
+    String timeCompleted;
 
 
 
-    public Item(Integer id, String name, Boolean status, String deadlineStart, String deadlineEnd) {
+
+    public TaskItem(Integer id, String name, Boolean status, String deadlineStart, String deadlineEnd, String timeCompleted) {
         this.id = id;
         this.name = name;
         this.status = status;
         this.deadlineStart = deadlineStart;
         this.deadlineEnd = deadlineEnd;
+        this.timeCompleted = timeCompleted;
 
     }
 
@@ -57,5 +60,13 @@ public class Item {
 
     public void setDeadlineEnd(String deadlineEnd) {
         this.deadlineEnd = deadlineEnd;
+    }
+
+    public String getTimeCompleted() {
+        return timeCompleted;
+    }
+
+    public void setTimeCompleted(String timeCompleted) {
+        this.timeCompleted = timeCompleted;
     }
 }
